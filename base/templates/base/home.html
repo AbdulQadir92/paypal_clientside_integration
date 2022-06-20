@@ -1,0 +1,87 @@
+{% extends 'base/main.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="home">
+        <div class="product">
+            <img class="product-img" src="{% static 'images/AppleiPhoneX-b.jpg' %}" alt="Product image" />
+            <div class="product-body">
+                <h2>Apple iPhone X</h2>
+                <div>
+                    <h3 id="amount">$5.99</h3>
+                    <a href="" >Buy now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="product">
+            <img class="product-img" src="{% static 'images/AppleiPhoneXS-b.jpg' %}" alt="Product image" />
+            <div class="product-body">
+                <h2>Apple iPhone XS</h2>
+                <div>
+                    <h3>$10.00</h3>
+                    <a href="" >Buy now</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+
+    {% comment %} <div id="paypalBtns">
+      <div id="paypal-button-container"></div>
+    </div> {% endcomment %}
+
+    <!-- Replace "test" with your own sandbox Business account app client ID -->
+<script src="https://www.paypal.com/sdk/js?client-id=AXqwt_oe_YLZdKpy9kuzsz9gEUdZJEWJuZG1eP-uhNFMbG7BJJ5Jsq6EEXGILkyZa-ZvsPjpQlMdhUOw&currency=USD"></script>
+<!-- Set up a container element for the button -->
+
+<div id="paypalBtns">
+  <div id="paypal-button-container"></div>
+</div>
+
+<script>
+  let total = document.getElementById('amount').innerText.slice(1);
+  total = Number(total);
+
+  paypal.Buttons({
+    // Sets up the transaction when a payment button is clicked
+    createOrder: (data, actions) => {
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: total // Can also reference a variable or function
+          }
+        }]
+      });
+    },
+
+    // Finalize the transaction after payer approval
+    onApprove: (data, actions) => {
+      return actions.order.capture().then(function(orderData) {
+        // Successful capture! For dev/demo purposes:
+        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+        const transaction = orderData.purchase_units[0].payments.captures[0];
+        alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+        // When ready to go live, remove the alert and show a success message within this page. For example:
+        // const element = document.getElementById('paypal-button-container');
+        // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+        // Or go to another URL:  actions.redirect('thank_you.html');
+      });
+    },
+
+    onCancel: (data) => {
+      console.log(data);
+      alert('Order cancelled');
+    },
+
+    style: {
+      color: 'blue',
+      shape: 'pill',
+      label: 'paypal',
+    }
+
+  }).render('#paypal-button-container');
+</script>
+{% endblock %}

@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+.main-container {
+    width: 90%;
+    margin: 30px auto;
+}
+
+.home {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.product {
+    width: 250px;
+    height: 410px;
+    margin: 0 30px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid rgba(150, 150, 150, 0.8);
+    border-radius: 5px;
+}
+
+.product-img {
+    width: 80%;
+    height: 320px;
+    border-bottom: 1px solid rgba(150, 150, 150, 0.8);
+    border-radius: 5px;
+    padding-bottom: 5px;
+}
+
+.product-body > div {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 10px 0;
+}
+
+.product-body > div > h3 {
+   margin-top: 5px;
+}
+
+.product-body > div > a {
+    display: inline-block;
+    text-decoration: none;
+    background-color: aqua;
+    opacity: 0.8;
+    padding: 5px 10px;
+}
+
+#paypalBtns {
+    display: flex;
+    justify-content: center;
+}
